@@ -29,6 +29,7 @@ export class Server {
 
     private socketEventMap: SocketEventMap = {};
     private table:string = ""; // socket id table
+    private
 
     /**
      * create a new instance
@@ -121,12 +122,15 @@ export class Server {
 
     public addPlayer(player: DominoPlayer) {
         this.players[player.name] = player;
-        // this.io.emit('player-added', player);
     }
 
 
     emitToClient(socketId: string, msg: string, data?: any) {
-        this.io.sockets.connected[socketId].emit(msg, data);
+        if(socketId in this.io.sockets.connected){
+            this.io.sockets.connected[socketId].emit(msg, data);
+        }else{
+            console.log(socketId + "not connected")
+        }
     }
 
     public canAddPlayer(id:string):boolean{
