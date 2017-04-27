@@ -6,6 +6,7 @@ import * as http from "http";
 import * as io from 'socket.io';
 import {DominoPlayer}  from "../../shared/interfaces/player"
 import {DominoEvent}  from "../../shared/interfaces/event"
+import {DominoConf} from  "../../shared/config/config"
 import Socket = SocketIO.Socket;
 
 export interface SocketEventMap {
@@ -13,7 +14,7 @@ export interface SocketEventMap {
 }
 
 export const ServerConfig = {
-    PORT: 7676 //Todo change from shared.
+    PORT: DominoConf.server.port
 }
 
 export class Server {
@@ -128,7 +129,10 @@ export class Server {
         this.io.sockets.connected[socketId].emit(msg, data);
     }
 
-    public canAddPlayer():boolean{
+    public canAddPlayer(id:string):boolean{
+        if(id in this.players){
+            return false;
+        }
         return true;
     }
 

@@ -3,10 +3,11 @@ import {DominoPlayer}  from "../../shared/interfaces/player"
 import {DominoEvent}  from "../../shared/interfaces/event"
 import Socket = SocketIO.Socket;
 
-export class DominoEvents {
-    public server:Server = Server.bootstrap();
+export class Domino {
+    private static server:Server ;
 
-    public start(){
+    public static bootstrap(){
+       this.server = Server.bootstrap();
         this.server.registerSocketEvents([{
             name: 'connection',
             data: {},
@@ -26,7 +27,7 @@ export class DominoEvents {
             data: {},
             handler: (socket: Socket,namePlayer:string) => {
                 console.log(socket.id);
-                if(this.server.canAddPlayer()){
+                if(this.server.canAddPlayer(socket.id)){
                     let player:DominoPlayer ={name:namePlayer, socketId:socket.id ,pic:""};
                     this.server.addPlayer(player);
                     this.server.emitToClient(socket.id,'ack');
@@ -38,6 +39,9 @@ export class DominoEvents {
             }
         }]);
 
+    }
+
+    public static start(){
         this.server.acceptConnections();
     }
 }
