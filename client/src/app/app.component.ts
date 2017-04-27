@@ -16,6 +16,7 @@ export class AppComponent {
 
   private registerEvents() {
     let self = this;
+
     this.socketService.registerEvent({
       name: 'connection-new',
       handler: (args: any[]) => {
