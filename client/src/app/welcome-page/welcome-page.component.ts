@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {SocketService} from "../socket.service";
+import {DominoPlayer} from "../../../../shared/interfaces/player";
 
 @Component({
   selector: 'app-welcome-page',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private socketService: SocketService) { }
 
   ngOnInit() {
+    this.socketService.registerEvent({
+      name: 'new-player',
+      handler: (args) => {
+        let player: DominoPlayer = args[0];
+        console.log(player);
+      }
+    });
   }
 
 }
