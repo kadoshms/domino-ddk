@@ -1,0 +1,11 @@
+<div *ngIf="!isLoading">
+  <input type="text" [(ngModel)]="playerName" />
+  <button (click)="register()">register</button>
+
+  <ul class="flex-container">
+    <li (click)="updateImg(url)" *ngFor="let url of figures" class="flex-item" [ngStyle]="{'background-image': 'url(' + url + ')'}"></li>
+  </ul>
+</div>
+<div *ngIf="isLoading">
+  Loading...
+</div>
