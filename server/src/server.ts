@@ -29,7 +29,10 @@ export class Server {
 
     private socketEventMap: SocketEventMap = {};
     private table:string = ""; // socket id table
-    private
+    private minPlayers=0;
+    private maxPlayers=1000;
+    private counterPlayer=0;
+
 
     /**
      * create a new instance
@@ -51,6 +54,11 @@ export class Server {
         this.config();
         this.listen();
 
+    }
+
+    public setMinMax(range:number[]):void{
+        this.minPlayers=range[0];
+        this.maxPlayers = range[1];
     }
 
     public  isTable():boolean{
@@ -122,6 +130,7 @@ export class Server {
 
     public addPlayer(player: DominoPlayer) {
         this.players[player.name] = player;
+        this.counterPlayer++;
     }
 
 
@@ -133,11 +142,26 @@ export class Server {
         }
     }
 
+    emitToAllClient(msg: string, data?: any) {
+        for (let i in this.io.sockets.connected) {
+            if(!(this.io.sockets.connected[i]===this.table)){
+                this.io.sockets.connected[i].emit(msg, data);
+            }
+        }
+    }
+
     public canAddPlayer(id:string):boolean{
         if(id in this.players){
             return false;
         }
+        if(this.counterPlayer===this.maxPlayers){
+            return false;
+        }
         return true;
+    }
+
+    public getPlayerMap():{ [name: string]: DominoPlayer } {
+        return this.players;
     }
 
 }

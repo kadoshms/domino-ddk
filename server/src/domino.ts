@@ -22,14 +22,20 @@ export class Domino {
                 }
             }
         },{
+            name: 'new-table',
+            data: {},
+            handler: (socket: Socket,range:number[]) => {
+                this.server.setMinMax(range);
+                this.server.emitToClient(this.server.getTableId(),'new-table');
+            }
+        },{
             name: 'new-player',
             data: {},
             handler: (socket: Socket,namePlayer:string[]) => {
                 console.log(socket.id);
                 if(this.server.canAddPlayer(socket.id)){
+                    console.log(namePlayer[0] + " " + namePlayer[1]);
                     let player:DominoPlayer ={name:namePlayer[0], socketId:socket.id ,pic:namePlayer[1]};
-                    console.log(player.name);
-                    console.log(player.pic);
                     this.server.addPlayer(player);
                     this.server.emitToClient(socket.id,'ack');
                     this.server.emitToClient(this.server.getTableId(),'new-player',player);
@@ -41,8 +47,15 @@ export class Domino {
             name: 'play',
             data: {},
             handler: (socket: Socket) => {
-                console.log("play");
-                this.server.emitToClient(socket.id,'play');
+                this.server.emitToClient(this.server.getTableId(),'play',this.server.getPlayerMap());
+                this.server.emitToAllClient('play');
+            }
+        },{
+            name: 'get-players',
+            data: {},
+            handler: (socket: Socket) => {
+                console.log("get-players")
+                this.server.emitToClient(this.server.getTableId(),'get-players',this.server.getPlayerMap());
             }
         }]);
         this.server.registerSocketEvents(events);
@@ -64,6 +77,14 @@ export class Domino {
         this.server.emitToClient(socketId,msg,data);
      }
 
+    public static emitToAllPlayer( msg: string, data?: any):void{
+        console.log("emitToAllPlayer"+ msg);
+        this.server.emitToAllClient(msg,data);
+    }
 
-
+    public static gameOver(){
+        console.log("gameOver");
+        this.server.emitToClient(this.server.getTableId(),'game-over');
+        this.server.emitToAllClient('game-over');
+    }
 }

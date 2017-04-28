@@ -1,0 +1,5 @@
+emit-
+emitToTable(msg: string, data?: any)
+emitToPlayer(socketId: string, msg: string, data?: any)
+emitToAllPlayer( msg: string, data?: any)
+
