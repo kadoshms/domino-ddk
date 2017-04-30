@@ -26,7 +26,7 @@ gulp.task('clean:dist', function () {
  *    when copying to /.tmp.
  */
 gulp.task('copy:source', function () {
-  return gulp.src([`${srcFolder}/**/*`, `!${srcFolder}/node_modules`, `../../shared/**/*`])
+  return gulp.src([`${srcFolder}/**/*`, `!${srcFolder}/node_modules`])
     .pipe(gulp.dest(tmpFolder));
 });
 

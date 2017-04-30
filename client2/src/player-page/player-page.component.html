@@ -1,11 +1,25 @@
-<div *ngIf="!isLoading">
-  <input type="text" [(ngModel)]="playerName" />
-  <button (click)="register()">register</button>
+<div *ngIf="!isLoading" id="app-wrap">
+  <div id="logo-wrap">
+    <img src="assets/logo.png" />
+  </div>
+  <div id="form-wrap">
+    <label>Name:</label><br />
+    <input type="text" [(ngModel)]="playerName" /><br />
+  </div>
 
-  <ul class="flex-container">
-    <li (click)="updateImg(url)" *ngFor="let url of figures" class="flex-item" [ngStyle]="{'background-image': 'url(' + url + ')'}"></li>
-  </ul>
+  <label>Choose your Avatar:</label><br />
+  <div id="monsters">
+    <div class="flex-container">
+      <div (click)="updateImg(url)" *ngFor="let url of figures" class="flex-item {{url}}" [ngStyle]="{'background-image': 'url(assets/avatars/' + url + '.png)'}"></div>
+    </div>
+  </div>
+
+  <div id="button-wrap">
+    <button (click)="register()">register</button>
+  </div>
 </div>
-<div *ngIf="isLoading">
-  Loading...
+<div *ngIf="isLoading" id="loader-wrap">
+  <div class="loader">
+    <i></i><i></i><i></i><i></i>
+  </div>
 </div>

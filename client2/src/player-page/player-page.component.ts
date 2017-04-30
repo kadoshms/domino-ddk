@@ -3,9 +3,12 @@ import {SocketService} from "../socket.service";
 import {Router} from '@angular/router';
 
 const FIGURES: string[] = [
-  'https://img.clipartfest.com/4c7b3e29c8ab0981e9b27990706755e7_3d-human-figure-wallpapers-3d-figures-presentation-clipart-free_1920-1200.jpeg ',
-  'https://media.forbiddenplanet.com/products/117938.jpg',
-  'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSK7Ug49Om1258xE8UsgsMpjEPvhskOWFUmNvVRqamjo1E3Roiw '
+  'a',
+  'b',
+  'c',
+  'd',
+  'e',
+  'f'
 ];
 
 @Component({

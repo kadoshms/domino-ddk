@@ -1,4 +1,27 @@
-<li *ngFor="let player of players">{{player.name}}</li>
-<div *ngIf="players?.length > 0">
-  <button type="button" (click)="register()">play!</button>
+<div id="main-wrapper">
+  <div id="header">
+    <div id="logo-cont"><img src="assets/logo.png" /></div>
+    <div id="black-thing">Players</div>
+  </div>
+  <div id="content">
+    <div id="inner-content">
+      <div id="player-list">
+        <ul>
+          <li *ngFor="let player of players"><div class="player">{{player.name}}</div></li>
+        </ul>
+      </div>
+      <div id="start-button-content">
+        <div id="start-button" *ngIf="players?.length > 0" (click)="register()">
+          <img src="assets/signin.png" />
+        </div>
+      </div>
+      <div id="game-pic-dont">
+        <div id="game-pic">
+          <div id="inner-pic">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

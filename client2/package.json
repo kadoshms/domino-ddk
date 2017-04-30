@@ -10,7 +10,7 @@
     "docs:watch": "npm run docs:build -- -s -w",
     "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
     "test": "tsc && karma start",
-    "local": "gulp build && rm -rf /Users/mac/decor/hackidc/lauf/client/node_modules/domino && cp -R dist /Users/mac/decor/hackidc/lauf/client/node_modules/domino/"
+    "local": "gulp build && rm -rf /Users/mac/decor/hackidc/lauf/client/node_modules/domino && cp -R dist /Users/mac/decor/hackidc/lauf/client/node_modules/domino/ && cp -R src/assets /Users/mac/decor/hackidc/lauf/client/node_modules/domino/ "
   },
   "repository": {
     "type": "git",
